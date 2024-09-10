@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.2);
+    margin: 0;
+  }
+
+  .banner {
+    background-color: rgb(0, 0, 0); /* Dark background for banner */
+    color: white; /* White text for contrast */
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  h1 {
+    font-size: 48px; /* Increase font size for the title */
+    margin: 20px 0; /* Add space around the title */
+  }
+
+  .section {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(39, 157, 245, 0.21);
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(34, 129, 199, 1);
+  }
+
+  .song-info, .stats, .recent-tracks {
+    margin-bottom: 30px;
+  }
+
+  .song-info img, .recent-tracks img {
+    max-width: 150px;
+    border-radius: 8px;
+    position: relative; /* Ensure positioning context for the equalizer */
+  }
+  
+  .song-info h3 span {
+      font-weight: normal; /* Ensure the "by" is not bold */
+  }
+
+  .equalizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
+    top: 372px; /* Adjust positioning as needed */
+    left: 665px; /* Adjust positioning as needed */
+    width: 40px; /* Adjust width to fit the image */
+    height: 50px; /* Adjust height to fit the image */
+  }
+
+  .equalizer-bar {
+    width: 6px;
+    height: 100%;
+    margin: 0 1px;
+    background: #ff5733;
+    animation: bounce 0.5s infinite ease-in-out alternate;
+  }
+  
+  .equalizer-bar:nth-child(1) {
+    animation-delay: -0.4s;
+  }
+
+  .equalizer-bar:nth-child(2) {
+    animation-delay: -0.2s;
+  }
+
+  .equalizer-bar:nth-child(3) {
+    animation-delay: 0s;
+  }
+
+  @keyframes bounce {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(0.3);
+    }
+  }
+
+  .recent-tracks ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left; /* Aligns text to the left */
+    columns: 2;
+  }
+
+  .recent-tracks li {
+    margin: 10px 0;
+  }
+
+  .recent-tracks img {
+    vertical-align: middle;
+    margin-right: 10px; /* Space between image and text */
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+  }
