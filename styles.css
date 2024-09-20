@@ -48,7 +48,7 @@ body {
     justify-content: center;
     position: absolute;
     top: 372px; /* Adjust positioning as needed */
-    left: 665px; /* Adjust positioning as needed */
+    left: 795px; /* Adjust positioning as needed */
     width: 40px; /* Adjust width to fit the image */
     height: 50px; /* Adjust height to fit the image */
   }
@@ -98,8 +98,16 @@ body {
     margin-right: 10px; /* Space between image and text */
   }
 
+  .top-artists, .top-albums, .top-tracks {
+    text-align: left;
+  }
+
   hr {
     border: 0;
     height: 1px;
     background-color: #ddd;
+  }
+
+  .stats {
+    list-style-position: inside;
   }
