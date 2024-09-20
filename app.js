@@ -77,30 +77,152 @@ async function getRecentTracks() {
     }
 }
 
+// Fetch top artists for the user
+async function getTopArtists() {
+    const topArtistsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
+
+    try {
+        const response = await fetch(topArtistsUrl);
+        const data = await response.json();
+
+        const topArtists = data.topartists.artist; // Get top artists from the response
+        const topArtistsElement = document.getElementById('top-artists');
+
+        if (topArtists.length > 0) {
+            let artistsHtml = '<ul>';
+            topArtists.forEach(artist => {
+                artistsHtml += `<li><strong>${artist.name}</strong> - ${artist.playcount} plays</li>`;
+            });
+            artistsHtml += '</ul>';
+            topArtistsElement.innerHTML = artistsHtml;
+        } else {
+            topArtistsElement.innerHTML = '<p>No top artists found.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching top artists:', error);
+        document.getElementById('top-artists').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+}
+
+// Fetch top albums for the user
+async function getTopAlbums() {
+    const topAlbumsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
+
+    try {
+        const response = await fetch(topAlbumsUrl);
+        const data = await response.json();
+
+        const topAlbums = data.topalbums.album; // Get top albums from the response
+        const topAlbumsElement = document.getElementById('top-albums');
+
+        if (topAlbums.length > 0) {
+            let albumsHtml = '<ul>';
+            topAlbums.forEach(album => {
+                albumsHtml += `<li><strong>${album.name}</strong> by ${album.artist.name}</li>`;
+            });
+            albumsHtml += '</ul>';
+            topAlbumsElement.innerHTML = albumsHtml;
+        } else {
+            topAlbumsElement.innerHTML = '<p>No top albums found.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching top albums:', error);
+        document.getElementById('top-albums').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+}
+
+// Fetch top tracks for the user
+async function getTopTracks() {
+    const topTracksUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
+
+    try {
+        const response = await fetch(topTracksUrl);
+        const data = await response.json();
+
+        const topTracks = data.toptracks.track; // Get top tracks from the response
+        const topTracksElement = document.getElementById('top-tracks');
+
+        if (topTracks.length > 0) {
+            let tracksHtml = '<ul>';
+            topTracks.forEach(track => {
+                tracksHtml += `<li><strong>${track.name}</strong> by ${track.artist.name}</li>`;
+            });
+            tracksHtml += '</ul>';
+            topTracksElement.innerHTML = tracksHtml;
+        } else {
+            topTracksElement.innerHTML = '<p>No top tracks found.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching top tracks:', error);
+        document.getElementById('top-tracks').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+}
+
 // Function to display user stats
 async function getUserStats() {
     const userInfoUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastFmUsername}&api_key=${apiKey}&format=json`;
+    const topArtistsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
+    const weeklyTopArtistsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getweeklyartistchart&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
 
     try {
-        const response = await fetch(userInfoUrl);
-        const data = await response.json();
+        // Fetch all data concurrently
+        const [userInfoResponse, topArtistsResponse, weeklyTopArtistsResponse] = await Promise.all([
+            fetch(userInfoUrl),
+            fetch(topArtistsUrl),
+            fetch(weeklyTopArtistsUrl)
+        ]);
 
-        const user = data.user;
+        // Parse JSON from all responses
+        const userData = await userInfoResponse.json();
+        const topArtistsData = await topArtistsResponse.json();
+        const weeklyTopArtistsData = await weeklyTopArtistsResponse.json();
+
+        // Construct HTML content
+        let statsHtml = `<p>Total number of songs listened to since September 2nd, 2024: ${userData.user.playcount}</p>`;
+
+        // Adding top genres from top artists
+        statsHtml += `<p><b>Top Genres (based on top artists):</b></p><ul>`;
+        const topArtists = topArtistsData.topartists.artist;
+        for (const artist of topArtists) {
+            const artistInfoUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(artist.name)}&api_key=${apiKey}&format=json`;
+            const artistInfoResponse = await fetch(artistInfoUrl);
+            const artistInfoData = await artistInfoResponse.json();
+
+            // Try to fetch artist's tags as genres
+            const genres = artistInfoData.artist.tags.tag.map(tag => tag.name).slice(0, 3); // Top 3 genres
+            statsHtml += `<li>${artist.name}: ${genres.join(', ')}</li>`;
+        }
+        statsHtml += `</ul>`;
+
+        // Adding weekly top artists
+        statsHtml += `<p><b>Weekly Top Artists:</b></p><ul>`;
+        weeklyTopArtistsData.weeklyartistchart.artist.forEach(artist => {
+            statsHtml += `<li>${artist.name} - ${artist.playcount} plays</li>`;
+        });
+        statsHtml += `</ul>`;
+
+        // Update the DOM
         const statsElement = document.getElementById('stats');
-        statsElement.innerHTML = `
-            <p>Total number of songs listened to since September 2nd, 2024: ${user.playcount}</p>
-        `;
+        statsElement.innerHTML = statsHtml;
+
     } catch (error) {
         console.error('Error fetching user stats:', error);
+        const statsElement = document.getElementById('stats');
+        statsElement.innerHTML = `<p>Error: ${error.message}</p>`;
     }
 }
+
 
 // Function to refresh all data
 function refreshData() {
     getCurrentlyPlayingSong();
     getUserStats();
     getRecentTracks();
+    getTopArtists();
+    getTopAlbums();
+    getTopTracks();
 }
+
 
 // Initial call to load the data
 refreshData();
