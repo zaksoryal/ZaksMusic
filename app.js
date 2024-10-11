@@ -17,13 +17,17 @@ async function getCurrentlyPlayingSong() {
 
         if (isPlaying) {
             songElement.innerHTML = `
-                <h3>${track.name} <span>by</span> <span>${track.artist['#text']}</span></h3>
-                <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
-                <p>Album: ${track.album['#text']}</p>
-                <div class="equalizer">
-                    <div class="equalizer-bar"></div>
-                    <div class="equalizer-bar"></div>
-                    <div class="equalizer-bar"></div>
+                <div class="song-container">
+                    <h3>${track.name} <span>by</span> <span>${track.artist['#text']}</span></h3>
+                    <div class="image-equalizer">
+                        <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
+                        <div class="equalizer">
+                            <div class="equalizer-bar"></div>
+                            <div class="equalizer-bar"></div>
+                            <div class="equalizer-bar"></div>
+                        </div>
+                    </div>
+                    <p>Album: ${track.album['#text']}</p>
                 </div>
             `;
         } else {
