@@ -1,4 +1,3 @@
-// Replace with your Last.fm username and API key
 const lastFmUsername = 'zaksoryal';
 const apiKey = 'bf0701b5a81598bd134b1fcd63918820';
 const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=1`;
@@ -81,7 +80,7 @@ async function getRecentTracks() {
     }
 }
 
-// Fetch top artists for the user
+// Fetch top artists
 async function getTopArtists() {
     const topArtistsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
 
@@ -108,7 +107,7 @@ async function getTopArtists() {
     }
 }
 
-// Fetch top albums for the user
+// Fetch top albums
 async function getTopAlbums() {
     const topAlbumsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
 
@@ -135,7 +134,7 @@ async function getTopAlbums() {
     }
 }
 
-// Fetch top tracks for the user
+// Fetch top tracks
 async function getTopTracks() {
     const topTracksUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
 
