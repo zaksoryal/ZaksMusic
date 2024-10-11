@@ -59,8 +59,8 @@ body {
 /* Position the equalizer bars over the image */
 .equalizer {
   position: absolute;
-  bottom: 10px; /* Adjust this based on where you want the equalizer to appear */
-  left: 110px; /* Adjust this to move the equalizer relative to the image */
+  bottom: 10px;
+  left: 110px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
