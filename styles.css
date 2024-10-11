@@ -42,45 +42,60 @@ body {
       font-weight: normal; /* Ensure the "by" is not bold */
   }
 
-  .equalizer {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    position: absolute;
-    top: 372px; /* Adjust positioning as needed */
-    left: 795px; /* Adjust positioning as needed */
-    width: 40px; /* Adjust width to fit the image */
-    height: 50px; /* Adjust height to fit the image */
-  }
+  /* Container for the image and equalizer */
+.image-equalizer {
+  position: relative;
+  display: inline-block; /* Make the container as big as the image */
+}
 
-  .equalizer-bar {
-    width: 6px;
-    height: 100%;
-    margin: 0 1px;
-    background: #ff5733;
-    animation: bounce 0.5s infinite ease-in-out alternate;
-  }
-  
-  .equalizer-bar:nth-child(1) {
-    animation-delay: -0.4s;
-  }
+/* Ensure the image takes priority for layout */
+.image-equalizer img {
+  display: block;
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+}
 
-  .equalizer-bar:nth-child(2) {
-    animation-delay: -0.2s;
-  }
+/* Position the equalizer bars over the image */
+.equalizer {
+  position: absolute;
+  bottom: 10px; /* Adjust this based on where you want the equalizer to appear */
+  left: 110px; /* Adjust this to move the equalizer relative to the image */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 40px;
+  height: 50px;
+}
 
-  .equalizer-bar:nth-child(3) {
-    animation-delay: 0s;
-  }
+/* Equalizer bars */
+.equalizer-bar {
+  width: 6px;
+  height: 100%;
+  margin: 0 1px;
+  background: #ff5733;
+  animation: bounce 0.5s infinite ease-in-out alternate;
+}
 
-  @keyframes bounce {
-    from {
+/* Bounce animation for each bar */
+.equalizer-bar:nth-child(1) {
+  animation-delay: -0.4s;
+}
+.equalizer-bar:nth-child(2) {
+  animation-delay: -0.2s;
+}
+.equalizer-bar:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes bounce {
+  0% {
       transform: scaleY(1);
-    }
-    to {
-      transform: scaleY(0.3);
-    }
   }
+  100% {
+      transform: scaleY(0.3);
+  }
+}
 
   .recent-tracks ul {
     list-style-type: none;
