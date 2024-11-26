@@ -101,7 +101,7 @@ body {
 .section {
   margin: 20px auto;
   padding: 20px;
-  background: linear-gradient(135deg, #ffdd57, #3b82f6);
+  background: linear-gradient(135deg, #ff5757, #3b82f6); /* Default gradient */
   color: white;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -163,7 +163,7 @@ button:hover {
 }
 
 a {
-  color: #111185; /* Change to a color that matches your theme */
+  color: #dfdfdf; /* Change to a color that matches your theme */
   text-decoration: none;
 }
 
