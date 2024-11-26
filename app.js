@@ -16,23 +16,20 @@ async function getCurrentlyPlayingSong() {
 
         if (isPlaying) {
             const trackInfoApiUrl = `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${apiKey}&artist=${encodeURIComponent(track.artist['#text'])}&track=${encodeURIComponent(track.name)}&username=${lastFmUsername}&format=json`;
-
-            // Fetch detailed track info (e.g., scrobble count, duration, etc.)
+        
             const trackInfoResponse = await fetch(trackInfoApiUrl);
             const trackInfoData = await trackInfoResponse.json();
             const trackInfo = trackInfoData.track;
-
-            // Convert duration from milliseconds to minutes and seconds
+        
             const durationMs = trackInfo.duration;
             const minutes = Math.floor(durationMs / 60000);
             const seconds = ((durationMs % 60000) / 1000).toFixed(0);
-
+        
             songElement.innerHTML = `
                 <div class="song-container">
                     <div class="current-song">
-                        <h3>${track.name}</h3>
-                        <h3><span>${track.artist['#text']}</span></h3>
-                        
+                        <h3><a href="${track.url}" target="_blank">${track.name}</a></h3>
+                        <h3>by <span>${track.artist['#text']}</span> on ${track.album['#text']}</h3>
                         <div class="image-equalizer">
                             <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
                             <div class="equalizer">
@@ -41,14 +38,13 @@ async function getCurrentlyPlayingSong() {
                                 <div class="equalizer-bar"></div>
                             </div>
                         </div>
-                        <p>${track.album['#text']}</p>
+                        </br>
                     </div>
-                    
                     <div class="song-stats">
-                        <p>Plays: ${trackInfo.userplaycount}</p>
+                        <p>Personal plays: ${trackInfo.userplaycount}</p>
                         <p>Duration: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}</p>
-                        <p>Listeners: ${trackInfo.listeners}</p>
-                        <p>Play count: ${trackInfo.playcount}</p>
+                        <p>Total listeners: ${trackInfo.listeners}</p>
+                        <p>Total playcount: ${trackInfo.playcount}</p>
                     </div>
                 </div>
             `;
@@ -84,12 +80,12 @@ async function getRecentTracks() {
             filteredTracks.forEach(track => {
                 const trackName = track.name;
                 const artistName = track.artist['#text'];
-                const albumArt = track.image[1]['#text'] || 'default-image.jpg'; // Medium size image
-
+                const albumArt = track.image[1]['#text'] || 'default-image.jpg';
+            
                 tracksHtml += `
                     <li>
                         <img src="${albumArt}" alt="Album Art" width="50" height="50">
-                        <strong>${trackName}</strong> by ${artistName}
+                        <strong><a href="${track.url}" target="_blank">${trackName}</a></strong> by ${artistName}
                     </li>
                 `;
             });
