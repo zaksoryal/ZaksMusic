@@ -29,7 +29,7 @@ async function getCurrentlyPlayingSong() {
                 <div class="song-container">
                     <div class="current-song">
                         <h3><a href="${track.url}" target="_blank">${track.name}</a></h3>
-                        <h3>by <span>${track.artist['#text']}</span> on ${track.album['#text']}</h3>
+                        <h3>by <span><b>${track.artist['#text']}</b></span> on <i>${track.album['#text']}</i></h3>
                         <div class="image-equalizer">
                             <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
                             <div class="equalizer">
