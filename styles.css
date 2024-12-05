@@ -4,7 +4,7 @@
 }
 
 h2, .section h2 {
-  font-family: 'Rock Salt', cursive; /* Casual and quirky font for headings */
+  font-family: 'Rock Salt', cursive;
 }
 
 #banner {
@@ -44,7 +44,7 @@ h2, .section h2 {
 
 #banner-text {
   color: white; /* White text */
-  font-size: 2.5rem; /* Adjust size as needed */
+  font-size: 2.5rem;
   font-weight: bold;
   text-transform: uppercase;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
@@ -72,7 +72,6 @@ h2, .section h2 {
   }
 }
 
-/* Original styles for song-info */
 .section {
   margin: 20px auto;
   margin-bottom: 30px;
@@ -81,7 +80,7 @@ h2, .section h2 {
   width: 80%;
   max-width: 800px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(34, 129, 199, 1);
+  box-shadow: 10px 10px 12px rgba(34, 129, 199, 1);
 }
 
 .song-info {
@@ -91,7 +90,6 @@ h2, .section h2 {
   max-width: 350px;
 }
 
-/* General vibrant styles */
 body {
   font-family: 'Roboto', Arial, sans-serif;
   background-color: #f7f9fc;
@@ -104,17 +102,12 @@ body {
   background: linear-gradient(135deg, #ff5757, #3b82f6); /* Default gradient */
   color: white;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .section:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-.navbar {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 15px rgb(190, 28, 28);
 }
 
 .navbar-brand {
@@ -163,11 +156,10 @@ button:hover {
 }
 
 a {
-  color: #dfdfdf; /* Change to a color that matches your theme */
+  color: #dfdfdf;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
 }
-
