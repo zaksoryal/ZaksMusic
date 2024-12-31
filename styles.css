@@ -58,20 +58,6 @@ h2, .section h2 {
   }
 }
 
-body {
-  overflow-y: auto; /* Allow vertical scrolling */
-  max-height: 100vh; /* Limit the height to the viewport height */
-  margin: 0; /* Remove default margin */
-}
-
-#banner {
-  position: fixed; /* Fix the banner at the top */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; /* Ensure the banner is on top */
-}
-
 #banner {
   width: 100%;
   position: sticky;
