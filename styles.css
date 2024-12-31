@@ -14,10 +14,9 @@ h2, .section h2 {
   font-size: 2.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8),
-               0 0 7px rgba(0, 0, 0, 0.6),
-               0 0 10px rgba(0, 0, 0, 0.4); /* Stronger shadow for better visibility */
-  animation: pulse 2s infinite; /* Pulse animation */
+  text-shadow: 0 0 2px rgba(219, 196, 101, 0.8),
+               0 0 7px rgba(222, 42, 42, 0.6),
+               0 0 10px rgba(65, 148, 226, 0.4); /* Stronger shadow for better visibility */
 }
 
 /* Pulse animation */

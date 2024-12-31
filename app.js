@@ -81,11 +81,14 @@ async function getRecentTracks() {
                 const trackName = track.name;
                 const artistName = track.artist['#text'];
                 const albumArt = track.image[1]['#text'] || 'default-image.jpg';
-            
+                const listenedAt = track.date ? new Date(track.date.uts * 1000).toLocaleString() : 'Unknown time';
+
                 tracksHtml += `
                     <li>
                         <img src="${albumArt}" alt="Album Art" width="50" height="50">
                         <strong><a href="${track.url}" target="_blank">${trackName}</a></strong> by ${artistName}
+                        <br>
+                        <small>Listened at: ${listenedAt}</small>
                     </li>
                 `;
             });
