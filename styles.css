@@ -63,7 +63,7 @@ h2, .section h2 {
 /* Adjust text shadow for mobile */
 @media (max-width: 600px) {
   h2, .section h2 {
-    text-shadow: 0 0 2px currentColor;
+    text-shadow: 0 0 1px currentColor;
   }
 }
 
