@@ -60,6 +60,13 @@ h2, .section h2 {
   }
 }
 
+/* Adjust text shadow for mobile */
+@media (max-width: 600px) {
+  h2, .section h2 {
+    text-shadow: 1px 1px 2px currentColor;
+  }
+}
+
 #banner {
   width: 100%;
   position: sticky;
