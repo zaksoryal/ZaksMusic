@@ -12,6 +12,11 @@ h2, .section h2 {
 #banner-text {
   color: rgb(230, 230, 230); /* White text */
   font-size: 2.5rem;
+
+  /* Adjust font size for mobile */
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
   font-weight: bold;
   text-transform: uppercase;
   text-shadow: 0 0 2px rgba(219, 196, 101, 0.8),
