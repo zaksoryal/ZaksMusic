@@ -115,6 +115,19 @@ body {
   margin: 0;
 }
 
+.two-columns {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+.two-columns li {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
 .section {
   margin: 20px auto;
   padding: 20px;

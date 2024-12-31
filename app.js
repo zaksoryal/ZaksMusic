@@ -66,40 +66,40 @@ async function getRecentTracks() {
         const response = await fetch(recentTracksUrl);
         const data = await response.json();
 
-        const tracks = data.recenttracks.track;
-        const recentTracksElement = document.getElementById('recent-tracks');
+const tracks = data.recenttracks.track;
+const recentTracksElement = document.getElementById('recent-tracks');
 
-        // Find the currently playing track
-        const nowPlayingTrack = tracks.find(track => track['@attr'] && track['@attr'].nowplaying === 'true');
+// Find the currently playing track
+const nowPlayingTrack = tracks.find(track => track['@attr'] && track['@attr'].nowplaying === 'true');
 
-        // Filter out the currently playing track
-        const filteredTracks = tracks.filter(track => track !== nowPlayingTrack);
+// Filter out the currently playing track
+const filteredTracks = tracks.filter(track => track !== nowPlayingTrack);
 
-        if (filteredTracks.length > 0) {
-            let tracksHtml = '<h2>Recently Played</h2> <ul>';
-            filteredTracks.forEach(track => {
-                const trackName = track.name;
-                const artistName = track.artist['#text'];
-                const albumArt = track.image[1]['#text'] || 'default-image.jpg';
-                const listenedAt = track.date ? new Date(track.date.uts * 1000).toLocaleString() : 'Unknown time';
+if (filteredTracks.length > 0) {
+    let tracksHtml = '<h2>Recently Played</h2> <ul class="two-columns">';
+    filteredTracks.forEach(track => {
+        const trackName = track.name;
+        const artistName = track.artist['#text'];
+        const albumArt = track.image[1]['#text'] || 'default-image.jpg';
+        const listenedAt = track.date ? new Date(track.date.uts * 1000).toLocaleString() : 'Unknown time';
 
-                tracksHtml += `
-                    <li>
-                        <img src="${albumArt}" alt="Album Art" width="50" height="50">
-                        <strong><a href="${track.url}" target="_blank">${trackName}</a></strong> by ${artistName}
-                        <br>
-                        <small>Listened at: ${listenedAt}</small>
-                    </li>
-                `;
-            });
-            tracksHtml += '</ul>';
-            recentTracksElement.innerHTML = tracksHtml;
-        } else {
-            recentTracksElement.innerHTML = '<p>No recent tracks found.</p>';
-        }
-    } catch (error) {
-        console.error('Error fetching recent tracks:', error);
-    }
+        tracksHtml += `
+            <li>
+                <img src="${albumArt}" alt="Album Art" width="50" height="50">
+                <strong><a href="${track.url}" target="_blank">${trackName}</a></strong> by ${artistName}
+                <br>
+                <small>Listened at: ${listenedAt}</small>
+            </li>
+        `;
+    });
+    tracksHtml += '</ul>';
+    recentTracksElement.innerHTML = tracksHtml;
+} else {
+    recentTracksElement.innerHTML = '<p>No recent tracks found.</p>';
+}
+} catch (error) {
+    console.error('Error fetching recent tracks:', error);
+}
 }
 
 // Fetch top artists
