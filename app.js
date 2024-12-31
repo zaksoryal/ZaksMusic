@@ -234,7 +234,6 @@ async function getUserStats() {
     }
 }
 
-
 // Function to refresh all data
 function refreshData() {
     getCurrentlyPlayingSong();
@@ -244,7 +243,6 @@ function refreshData() {
     getTopAlbums();
     getTopTracks();
 }
-
 
 // Initial call to load the data
 refreshData();
