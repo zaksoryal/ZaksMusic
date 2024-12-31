@@ -59,7 +59,8 @@ h2, .section h2 {
 }
 
 body {
-  overflow-y: hidden; /* Prevent vertical scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
+  max-height: 100vh; /* Limit the height to the viewport height */
   margin: 0; /* Remove default margin */
 }
 
