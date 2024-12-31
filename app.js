@@ -203,7 +203,14 @@ async function getUserStats() {
         const weeklyTopArtistsData = await weeklyTopArtistsResponse.json();
 
         // Construct HTML content
-        let statsHtml = `<p>Total number of songs listened to since September 2nd, 2024: ${userData.user.playcount}</p>`;
+        let statsHtml = `<p>Total number of songs listened to since September 2nd, 2024: <b>${userData.user.playcount}</b></p>`;
+        
+        // Calculate and display average songs per day
+        const accountCreationDate = new Date('2024-09-02');
+        const currentDate = new Date();
+        const daysSinceCreation = Math.floor((currentDate - accountCreationDate) / (1000 * 60 * 60 * 24));
+        const averageSongsPerDay = Math.round(userData.user.playcount / daysSinceCreation);
+        statsHtml += `<p>That's an average of <b>${averageSongsPerDay}</b> songs per day!</p>`;
 
         // Adding top genres from top artists
         statsHtml += `<p><b>Top Genres (based on top artists):</b></p><ul>`;
