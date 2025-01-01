@@ -28,6 +28,7 @@ async function getCurrentlyPlayingSong() {
             songElement.innerHTML = `
                 <div class="song-container">
                     <div class="current-song">
+                        <h2 id="currentlyPlaying">Currently Playing</h2>
                         <h3><a href="${track.url}" target="_blank">${track.name}</a></h3>
                         <h3>by <span><b>${track.artist['#text']}</b></span> on <i>${track.album['#text']}</i></h3>
                         <div class="image-equalizer">

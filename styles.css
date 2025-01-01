@@ -9,6 +9,20 @@ h2, .section h2 {
   animation: pulseColor 2s infinite; /* Pulse animation */
 }
 
+#headings {
+  background: rgba(0, 0, 0, 0.88); /* Background color */
+  display: block; /* Make the element a block for centering */
+  margin: 0 auto; /* Horizontally center */
+  padding: 5px; /* Padding for readability */
+  border-radius: 5px; /* Rounded corners */
+  text-align: center; /* Center text within the background */
+  width: fit-content; /* Optional: Set width to the content size */
+}
+
+#currentlyPlaying {
+  color: rgb(137, 255, 73);
+}
+
 #banner-text {
   color: rgb(230, 230, 230); /* White text */
   font-size: 2.5rem;
@@ -121,7 +135,8 @@ h2, .section h2 {
 
 body {
   font-family: 'Roboto', Arial, sans-serif;
-  background-color: #1F1F1F;
+  background: url('arcadePattern.png') no-repeat center center fixed;
+  background-size: cover;
   margin: 0;
 }
 
@@ -162,7 +177,7 @@ h2 {
 }
 
 footer {
-  background: #000000;
+  background: #242424;
 }
 
 footer p {
