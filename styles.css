@@ -9,7 +9,7 @@ h2, .section h2 {
   animation: pulseColor 2s infinite; /* Pulse animation */
 }
 
-#headings {
+.headings {
   background: rgba(0, 0, 0, 0.88); /* Background color */
   display: block; /* Make the element a block for centering */
   margin: 0 auto; /* Horizontally center */
@@ -21,6 +21,22 @@ h2, .section h2 {
 
 #currentlyPlaying {
   color: rgb(137, 255, 73);
+}
+
+#topArtists {
+  color: rgb(252, 255, 58) !important;
+}
+
+#topAlbums {
+  color: rgb(0, 149, 255) !important;
+}
+
+#topTracks {
+  color: rgb(255, 53, 53) !important;
+}
+
+#statistics {
+  color: rgb(245, 53, 255) !important;
 }
 
 #banner-text {
