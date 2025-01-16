@@ -1,8 +1,5 @@
-const lastFmUsername = process.env.LAST_FM_USERNAME;
-const apiKey = process.env.LAST_FM_API_KEY;
-const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;
-const spotifyClientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-
+const lastFmUsername = 'zaksoryal';
+const apiKey = 'bf0701b5a81598bd134b1fcd63918820';
 const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=1`;
 
 // Function to fetch the currently playing song
@@ -28,110 +25,37 @@ async function getCurrentlyPlayingSong() {
             const minutes = Math.floor(durationMs / 60000);
             const seconds = ((durationMs % 60000) / 1000).toFixed(0);
         
-            const previewUrl = await getSpotifyPreviewUrl(track.artist['#text'], track.name);
-
-            console.log(`Preview URL: ${previewUrl}`);
-
             songElement.innerHTML = `
                 <div class="song-container">
                     <div class="current-song">
                         <h2 id="currentlyPlaying">Currently Playing</h2>
                         <h3><a href="${track.url}" target="_blank">${track.name}</a></h3>
                         <h3>by <span><b>${track.artist['#text']}</b></span> on <i>${track.album['#text']}</i></h3>
-                        <img id="albumArt" src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
+                        <div class="image-equalizer">
+                            <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
+                            <div class="equalizer">
+                                <div class="equalizer-bar"></div>
+                                <div class="equalizer-bar"></div>
+                                <div class="equalizer-bar"></div>
+                            </div>
+                        </div>
                         </br>
                     </div>
                     <div class="song-stats">
-                        <p>Duration: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}</p>
                         <p>Personal plays: ${trackInfo.userplaycount}</p>
+                        <p>Duration: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}</p>
                         <p>Total listeners: ${trackInfo.listeners}</p>
                         <p>Total playcount: ${trackInfo.playcount}</p>
                     </div>
-                    <audio id="previewAudio" src="${previewUrl}" preload="none"></audio>
                 </div>
             `;
-            const albumArt = document.getElementById('albumArt');
-            const previewAudio = document.getElementById('previewAudio');
-
-            if (previewUrl) {
-                previewAudio.src = previewUrl;
-
-                let audioEnabled = false;
-
-                albumArt.addEventListener('click', () => {
-                    if (!audioEnabled) {
-                        previewAudio.play().then(() => {
-                            audioEnabled = true;
-                            previewAudio.pause();
-                        }).catch(error => {
-                            console.error('Error playing audio:', error);
-                        });
-                    }
-                });
-
-                albumArt.addEventListener('mouseover', () => {
-                    if (audioEnabled) {
-                        previewAudio.play();
-                    }
-                });
-
-                albumArt.addEventListener('mouseout', () => {
-                    if (audioEnabled) {
-                        previewAudio.pause();
-                    }
-                });
-
-            } else {
-                console.error('No preview URL available:', error);
-            }
-
         } else {
             songElement.innerHTML = `
                 <p>I'm not listening to anything right now :(</p>
             `;
         }
-
     } catch (error) {
         console.error('Error fetching currently playing song:', error);
-    }
-    
-}
-
-// Function to get Spotify preview URL
-async function getSpotifyPreviewUrl(artist, track) {
-    const authUrl = 'https://accounts.spotify.com/api/token';
-    const searchUrl = `https://api.spotify.com/v1/search?q=track:${encodeURIComponent(track)}%20artist:${encodeURIComponent(artist)}&type=track&limit=1`;
-
-    try {
-        // Get access token
-        const authResponse = await fetch(authUrl, {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'grant_type=client_credentials'
-        });
-        const authData = await authResponse.json();
-        const accessToken = authData.access_token;
-
-        // Fetch track preview URL
-        const response = await fetch(searchUrl, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
-        const data = await response.json();
-        if (data.tracks && data.tracks.items && data.tracks.items.length > 0) {
-            const trackItem = data.tracks.items[0];
-            console.log(`Found track: ${trackItem.name} by ${trackItem.artists.map(artist => artist.name).join(', ')}`);
-            return trackItem.preview_url;
-        } else {
-            throw new Error('No tracks found');
-        }
-    } catch (error) {
-        console.error('Error fetching Spotify preview URL:', error);
-        return null;
     }
 }
 
