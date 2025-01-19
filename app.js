@@ -124,7 +124,13 @@ async function getSpotifyPreviewUrl(artist, track) {
         if (data.tracks && data.tracks.items && data.tracks.items.length > 0) {
             const trackItem = data.tracks.items[0];
             console.log(`Found track: ${trackItem.name} by ${trackItem.artists.map(artist => artist.name).join(', ')}`);
-            return trackItem.preview_url;
+            if (trackItem.preview_url) {
+                console.log(`Preview URL for ${trackItem.name}: ${trackItem.preview_url}`);
+                return trackItem.preview_url;
+            } else {
+                console.log(`No preview URL available for ${trackItem.name}`);
+                return null;
+            }
         } else {
             throw new Error('No tracks found');
         }
