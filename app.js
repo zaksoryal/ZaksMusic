@@ -106,7 +106,7 @@ async function getSpotifyPreviewUrl(artist, track) {
         const authResponse = await fetch(authUrl, {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+                'Authorization': 'Basic ' + btoa(spotifyClientId + ':' + spotifyClientSecret),
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: 'grant_type=client_credentials'
