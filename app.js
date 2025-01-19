@@ -29,8 +29,6 @@ async function getCurrentlyPlayingSong() {
         
             const previewUrl = await getSpotifyPreviewUrl(track.artist['#text'], track.name);
 
-            console.log(`Preview URL: ${previewUrl}`);
-
             songElement.innerHTML = `
                 <div class="song-container">
                     <div class="current-song">
