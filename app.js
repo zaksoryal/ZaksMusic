@@ -94,13 +94,11 @@ async function getCurrentlyPlayingSong() {
     
 }
 
-// Function to get Spotify preview URL
-async function getSpotifyPreviewUrl(artist, track) {
+// Function to get Spotify access token
+async function getSpotifyAccessToken() {
     const authUrl = 'https://accounts.spotify.com/api/token';
-    const searchUrl = `https://api.spotify.com/v1/search?q=track:${encodeURIComponent(track)}%20artist:${encodeURIComponent(artist)}&type=track&limit=1`;
 
     try {
-        // Get access token
         const authResponse = await fetch(authUrl, {
             method: 'POST',
             headers: {
@@ -110,9 +108,18 @@ async function getSpotifyPreviewUrl(artist, track) {
             body: 'grant_type=client_credentials'
         });
         const authData = await authResponse.json();
-        const accessToken = authData.access_token;
+        return authData.access_token;
+    } catch (error) {
+        console.error('Error fetching Spotify access token:', error);
+        throw error;
+    }
+}
 
-        // Fetch track preview URL
+// Function to find track on Spotify
+async function findSpotifyTrack(artist, track, accessToken) {
+    const searchUrl = `https://api.spotify.com/v1/search?q=track:${encodeURIComponent(track)}%20artist:${encodeURIComponent(artist)}&type=track&limit=1`;
+
+    try {
         const response = await fetch(searchUrl, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
@@ -120,17 +127,28 @@ async function getSpotifyPreviewUrl(artist, track) {
         });
         const data = await response.json();
         if (data.tracks && data.tracks.items && data.tracks.items.length > 0) {
-            const trackItem = data.tracks.items[0];
-            console.log(`Found track: ${trackItem.name} by ${trackItem.artists.map(artist => artist.name).join(', ')}`);
-            if (trackItem.preview_url) {
-                console.log(`Preview URL for ${trackItem.name}: ${trackItem.preview_url}`);
-                return trackItem.preview_url;
-            } else {
-                console.log(`No preview URL available for ${trackItem.name}`);
-                return null;
-            }
+            return data.tracks.items[0];
         } else {
-            throw new Error('No tracks found');
+            console.log(`No track found for ${track} by ${artist}`);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error finding track on Spotify:', error);
+        throw error;
+    }
+}
+
+// Function to get Spotify preview URL
+async function getSpotifyPreviewUrl(artist, track) {
+    try {
+        const accessToken = await getSpotifyAccessToken();
+        const trackItem = await findSpotifyTrack(artist, track, accessToken);
+        if (trackItem && trackItem.preview_url) {
+            console.log(`Preview URL for ${trackItem.name}: ${trackItem.preview_url}`);
+            return trackItem.preview_url;
+        } else {
+            console.log(`No preview URL available for ${trackItem.name}`);
+            return null;
         }
     } catch (error) {
         console.error('Error fetching Spotify preview URL:', error);
