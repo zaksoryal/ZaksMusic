@@ -27,20 +27,18 @@ async function getCurrentlyPlayingSong() {
         
             songElement.innerHTML = `
                 <div class="song-container">
-                    <div class="current-song">
-                        <h2 id="currentlyPlaying">Currently Playing</h2>
-                        <h3><a href="${track.url}" target="_blank">${track.name}</a></h3>
-                        <h3>by <span><b>${track.artist['#text']}</b></span> on <i>${track.album['#text']}</i></h3>
-                        <div class="image-equalizer">
-                            <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
-                            <div class="equalizer">
-                                <div class="equalizer-bar"></div>
-                                <div class="equalizer-bar"></div>
-                                <div class="equalizer-bar"></div>
-                            </div>
+                    <h2 id="currentlyPlaying">Currently Playing</h2>
+                    <h3><a href="${track.url}" target="_blank">${track.name}</a></h3>
+                    <h3>by <span><b>${track.artist['#text']}</b></span> on <i>${track.album['#text']}</i></h3>
+                    <div class="image-equalizer">
+                        <img src="${track.image[2]['#text'] || 'default-image.jpg'}" alt="Album Art">
+                        <div class="equalizer">
+                            <div class="equalizer-bar"></div>
+                            <div class="equalizer-bar"></div>
+                            <div class="equalizer-bar"></div>
                         </div>
-                        </br>
                     </div>
+                    </br>
                     <div class="song-stats">
                         <p>Personal plays: ${trackInfo.userplaycount}</p>
                         <p>Duration: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}</p>
@@ -75,23 +73,22 @@ async function getRecentTracks() {
 
         // Filter out the currently playing track
         const filteredTracks = tracks.filter(track => track !== nowPlayingTrack);
-
         if (filteredTracks.length > 0) {
-            let tracksHtml = '<h2>Recently Played</h2> <ul class="two-columns">';
+            let tracksHtml = '<ul class="two-columns">';
             filteredTracks.forEach(track => {
-                const trackName = track.name;
-                const artistName = track.artist['#text'];
-                const albumArt = track.image[1]['#text'] || 'default-image.jpg';
-                const listenedAt = track.date ? new Date(track.date.uts * 1000).toLocaleString() : 'Unknown time';
+            const trackName = track.name;
+            const artistName = track.artist['#text'];
+            const albumArt = track.image[1]['#text'] || 'default-image.jpg';
+            const listenedAt = track.date ? new Date(track.date.uts * 1000).toLocaleString() : 'Unknown time';
 
-                tracksHtml += `
-                    <li>
-                        <img src="${albumArt}" alt="Album Art" width="50" height="50">
-                        <strong><a href="${track.url}" target="_blank">${trackName}</a></strong> by ${artistName}
-                        <br>
-                        <small>Listened at: ${listenedAt}</small>
-                    </li>
-                `;
+            tracksHtml += `
+                <li>
+                <img src="${albumArt}" alt="Album Art" width="50" height="50">
+                <strong><a href="${track.url}" target="_blank">${trackName}</a></strong> by ${artistName}
+                <br>
+                <small>Listened at: ${listenedAt}</small>
+                </li>
+            `;
             });
             tracksHtml += '</ul>';
             recentTracksElement.innerHTML = tracksHtml;
@@ -189,19 +186,25 @@ async function getUserStats() {
     const userInfoUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${lastFmUsername}&api_key=${apiKey}&format=json`;
     const topArtistsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
     const weeklyTopArtistsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getweeklyartistchart&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
+    const weeklyTopAlbumsUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getweeklyalbumchart&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
+    const weeklyTopTracksUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getweeklytrackchart&user=${lastFmUsername}&api_key=${apiKey}&format=json&limit=5`;
 
     try {
         // Fetch all data concurrently
-        const [userInfoResponse, topArtistsResponse, weeklyTopArtistsResponse] = await Promise.all([
+        const [userInfoResponse, topArtistsResponse, weeklyTopArtistsResponse, weeklyTopAlbumsResponse, weeklyTopTracksResponse] = await Promise.all([
             fetch(userInfoUrl),
             fetch(topArtistsUrl),
-            fetch(weeklyTopArtistsUrl)
+            fetch(weeklyTopArtistsUrl),
+            fetch(weeklyTopAlbumsUrl),
+            fetch(weeklyTopTracksUrl)
         ]);
 
         // Parse JSON from all responses
         const userData = await userInfoResponse.json();
         const topArtistsData = await topArtistsResponse.json();
         const weeklyTopArtistsData = await weeklyTopArtistsResponse.json();
+        const weeklyTopAlbumsData = await weeklyTopAlbumsResponse.json();
+        const weeklyTopTracksData = await weeklyTopTracksResponse.json();
 
         // Construct HTML content
         let statsHtml = `<p>Total number of songs listened to since September 2nd, 2024: <b>${userData.user.playcount}</b></p>`;
@@ -231,6 +234,20 @@ async function getUserStats() {
         statsHtml += `<p><b>Weekly Top Artists:</b></p><ul>`;
         weeklyTopArtistsData.weeklyartistchart.artist.forEach(artist => {
             statsHtml += `<li>${artist.name} - ${artist.playcount} plays</li>`;
+        });
+        statsHtml += `</ul>`;
+
+        // Adding weekly top albums
+        statsHtml += `<p><b>Weekly Top Albums:</b></p><ul>`;
+        weeklyTopAlbumsData.weeklyalbumchart.album.forEach(album => {
+            statsHtml += `<li>${album.name} by ${album.artist['#text']} - ${album.playcount} plays</li>`;
+        });
+        statsHtml += `</ul>`;
+
+        // Adding weekly top tracks
+        statsHtml += `<p><b>Weekly Top Tracks:</b></p><ul>`;
+        weeklyTopTracksData.weeklytrackchart.track.forEach(track => {
+            statsHtml += `<li>${track.name} by ${track.artist['#text']} - ${track.playcount} plays</li>`;
         });
         statsHtml += `</ul>`;
 

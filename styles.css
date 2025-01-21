@@ -1,154 +1,4 @@
-/* Fonts */
-#banner-text {
-  font-family: 'Press Start 2P', cursive; /* Retro pixel font */
-}
-
-h2, .section h2 {
-  font-family: 'Rock Salt', cursive;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better visibility */
-  animation: pulseColor 2s infinite; /* Pulse animation */
-}
-
-.headings {
-  background: rgba(0, 0, 0, 0.88); /* Background color */
-  display: block; /* Make the element a block for centering */
-  margin: 0 auto; /* Horizontally center */
-  padding: 5px; /* Padding for readability */
-  border-radius: 5px; /* Rounded corners */
-  text-align: center; /* Center text within the background */
-  width: fit-content; /* Optional: Set width to the content size */
-}
-
-#currentlyPlaying {
-  color: rgb(137, 255, 73);
-}
-
-#topArtists {
-  color: rgb(252, 255, 58) !important;
-}
-
-#topAlbums {
-  color: rgb(0, 149, 255) !important;
-}
-
-#topTracks {
-  color: rgb(255, 53, 53) !important;
-}
-
-#statistics {
-  color: rgb(245, 53, 255) !important;
-}
-
-#banner-text {
-  color: rgb(230, 230, 230); /* White text */
-  font-size: 2.5rem;
-
-  /* Adjust font size for mobile */
-  @media (max-width: 600px) {
-    font-size: 2rem;
-  }
-  font-weight: bold;
-  text-transform: uppercase;
-  text-shadow: 0 0 2px rgb(255, 255, 255);
-}
-
-/* Pulse animation */
-@keyframes pulse {
-  0% {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                   0 0 20px rgba(255, 255, 255, 0.6),
-                   0 0 30px rgba(255, 255, 255, 0.4);
-  }
-  50% {
-      text-shadow: 0 0 15px rgba(255, 255, 255, 1),
-                   0 0 30px rgba(255, 255, 255, 0.8),
-                   0 0 45px rgba(255, 255, 255, 0.6);
-  }
-  100% {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                   0 0 20px rgba(255, 255, 255, 0.6),
-                   0 0 30px rgba(255, 255, 255, 0.4);
-  }
-}
-
-/* Pulse animation matching text color */
-@keyframes pulseColor {
-  0% {
-      text-shadow: 0 0 5px currentColor,
-                   0 0 10px currentColor,
-                   0 0 15px currentColor;
-  }
-  50% {
-      text-shadow: 0 0 7px currentColor,
-                   0 0 15px currentColor,
-                   0 0 22px currentColor;
-  }
-  100% {
-      text-shadow: 0 0 5px currentColor,
-                   0 0 10px currentColor,
-                   0 0 15px currentColor;
-  }
-}
-
-/* Adjust text shadow for mobile */
-@media (max-width: 600px) {
-  h2, .section h2 {
-    text-shadow: 0 0 1px currentColor;
-  }
-}
-
-#banner {
-  width: 100%;
-  position: sticky;
-  top : 0;
-  bottom: 100;
-  height: 125px;
-  background: radial-gradient(circle at 20% 30%, 
-      red, 
-      yellow 100%, 
-      blue 60%, 
-      red 90%);
-  background-size: 200% 200%; /* Creates a large, blended effect */
-  animation: gradientShift 12s infinite alternate; /* Soft movement for a dynamic look */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white; /* Text color for contrast */
-  font-family: 'Arial', sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-  z-index: 1000; /* Ensure the banner stays above other content */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* shadow for better visibility */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better visibility */
-}
-
-/* Animation for a shifting gradient effect */
-@keyframes gradientShift {
-  0% {
-      background-position: 0% 0%;
-  }
-  100% {
-      background-position: 100% 100%;
-  }
-}
-
-.section {
-  margin: 20px auto;
-  margin-bottom: 30px;
-  padding: 20px;
-  background-color: rgba(39, 157, 245, 0.21);
-  width: 80%;
-  max-width: 800px;
-  border-radius: 10px;
-  box-shadow: 10px 10px 12px rgba(34, 129, 199, 1);
-}
-
-.song-info {
-  background-color: rgb(20, 89, 142);
-  color: white;
-  max-width: 400px;
-}
-
+/* General Styles */
 body {
   font-family: "Funnel Display", serif;
   background: url('arcadePattern.png') no-repeat center center fixed;
@@ -156,6 +6,141 @@ body {
   margin: 0;
 }
 
+a {
+  color: #dfdfdf;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Fonts */
+#banner-text {
+  font-family: 'Press Start 2P', cursive;
+  color: rgb(230, 230, 230); /* White text */
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 0 0 2px rgba(184, 0, 0, 0.658);
+}
+
+h2, .section h2 {
+  font-family: 'Rock Salt', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: pulseColor 3s infinite;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Colors and Sections */
+#currentlyPlaying { color: rgb(255, 255, 255); }
+#recentlyPlayed { color: rgb(255, 148, 41) !important;}
+#topArtists { color: rgb(252, 255, 58) !important; }
+#topAlbums { color: rgb(0, 149, 255) !important; }
+#topTracks { color: rgb(60, 255, 53) !important; }
+#statistics { color: rgb(245, 53, 255) !important; }
+
+#recent-tracks { 
+  color: rgb(255, 148, 41) !important;
+  box-shadow: 
+    0px 4px 15px 0px rgba(255, 148, 41, 0.5), 
+    0 0 15px 5px rgba(255, 148, 41, 0.8),
+    0 0 20px 10px rgba(255, 148, 41, 0.6);
+}
+
+#top-artists { 
+  color: rgb(252, 255, 58) !important; 
+  box-shadow: 
+    0px 4px 15px 0px rgba(252, 255, 58, 0.5), 
+    0 0 15px 5px rgba(252, 255, 58, 0.8),
+    0 0 20px 10px rgba(252, 255, 58, 0.6);
+}
+
+#top-albums { 
+  color: rgb(0, 149, 255) !important; 
+  box-shadow: 
+    0px 4px 15px 0px rgba(0, 149, 255, 0.5), 
+    0 0 15px 5px rgba(0, 149, 255, 0.8),
+    0 0 20px 10px rgba(0, 149, 255, 0.6);
+}
+
+#top-tracks { 
+  color: rgb(60, 255, 53) !important; 
+  box-shadow: 
+    0px 4px 15px 0px rgba(60, 255, 53, 0.5), 
+    0 0 15px 5px rgba(60, 255, 53, 0.8),
+    0 0 20px 10px rgba(60, 255, 53, 0.6);
+}
+
+#stats { 
+  color: rgb(246, 83, 255) !important; 
+  box-shadow: 
+    0px 4px 15px 0px rgba(245, 53, 255, 0.5), 
+    0 0 15px 5px rgba(245, 53, 255, 0.8),
+    0 0 20px 10px rgba(245, 53, 255, 0.6);
+}
+
+.section {
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(0deg, #1a1a1a, #464646); /* Smooth gradient */
+  color: white;
+  border-radius: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 
+  0px 4px 15px 0px rgba(0, 0, 0, 0.5), 
+  0 0 15px 5px rgba(255, 69, 0, 0.8),
+  0 0 20px 10px rgba(255, 165, 0, 0.6);
+}
+
+.section:hover {
+  transform: translateY(-10px) translateX(-5px);
+  box-shadow: 
+  0px 10px 20px rgba(0, 0, 0, 0.6),
+  0 0 20px 8px rgba(255, 69, 0, 0.9),
+  0 0 25px 12px rgba(255, 165, 0, 0.8),
+  0 0 26px 13px rgba(255, 223, 0, 0.7); 
+}
+
+.current-song {
+  max-width: 400px;
+}
+
+/* Headings */
+.headings {
+  background: rgba(0, 0, 0, 0.88);
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: fit-content;
+}
+
+/* Banners */
+#banner {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  height: 125px;
+  background: radial-gradient(circle at 20% 30%, red, yellow 100%, blue 60%, red 90%);
+  background-size: 200% 200%;
+  animation: gradientShift 12s infinite alternate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Lists */
 .two-columns {
   display: flex;
   flex-wrap: wrap;
@@ -169,29 +154,7 @@ body {
   padding: 10px;
 }
 
-.section {
-  margin: 20px auto;
-  padding: 20px;
-  background: linear-gradient(135deg, #ff5757, #3b82f6); /* Default gradient */
-  color: white;
-  border-radius: 15px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.section:hover {
-  transform: translateY(-10px);
-  box-shadow: 10px 10px 15px rgb(190, 28, 28);
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
-}
-
-h2 {
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
+/* Footer */
 footer {
   background: #242424;
 }
@@ -200,6 +163,7 @@ footer p {
   margin: 0;
 }
 
+/* Images */
 .song-info img, .recent-tracks img {
   border: 4px solid #ffffff;
   transition: transform 0.2s;
@@ -209,6 +173,7 @@ footer p {
   transform: scale(1.1);
 }
 
+/* Recent Tracks */
 .recent-tracks ul {
   list-style-type: none;
   padding: 0;
@@ -223,16 +188,50 @@ footer p {
   margin-right: 10px;
 }
 
-button:hover {
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  color: #000 !important;
+/* Animations */
+@keyframes pulse {
+  0% {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    text-shadow: 
+      0 0 15px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 255, 255, 0.8),
+      0 0 45px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
 }
 
-a {
-  color: #dfdfdf;
-  text-decoration: none;
+@keyframes pulseColor {
+  0% {
+    text-shadow: 
+      0 0 2px currentColor,
+      0 0 4px currentColor,
+      0 0 1px currentColor;
+  }
+  50% {
+    text-shadow: 
+      0 0 3px currentColor,
+      0 0 6px currentColor,
+      0 0 3px currentColor;
+  }
+  100% {
+    text-shadow: 
+      0 0 2px currentColor,
+      0 0 4px currentColor,
+      0 0 1px currentColor;
+  }
 }
 
-a:hover {
-  text-decoration: underline;
+@keyframes gradientShift {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
