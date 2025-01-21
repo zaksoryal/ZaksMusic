@@ -164,7 +164,7 @@ footer p {
 }
 
 /* Images */
-.current-song, .recent-tracks img {
+.current-song img, .recent-tracks img {
   border: 4px solid #ffffff;
   transition: transform 0.2s;
 }
