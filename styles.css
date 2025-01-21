@@ -169,7 +169,7 @@ footer p {
   transition: transform 0.2s;
 }
 
-.song-info img:hover, .recent-tracks img:hover {
+.current-song img:hover, .recent-tracks img:hover {
   transform: scale(1.1);
 }
 
